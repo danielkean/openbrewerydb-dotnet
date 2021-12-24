@@ -6,6 +6,9 @@ namespace OpenBrewery;
 [Route("[controller]")]
 public class BreweriesController : ControllerBase
 {
+    private readonly HttpClient client = new();
+    private const string BASE_URL = "https://api.openbrewerydb.org/breweries/";
+
     [HttpGet]
     public Task<ActionResult<List<Brewery>>> ListBreweries()
     {
