@@ -10,9 +10,10 @@ public class BreweriesController : ControllerBase
     private const string BASE_URL = "https://api.openbrewerydb.org/breweries/";
 
     [HttpGet]
-    public Task<ActionResult<List<Brewery>>> ListBreweries()
+    public async Task<ActionResult<List<Brewery>>> ListBreweries()
     {
-        throw new NotImplementedException();
+        var breweries = await client.GetFromJsonAsync<List<Brewery>>($"{BASE_URL}{Request.QueryString}");
+        return breweries == null ? NotFound() : breweries;
     }
 
     [HttpGet("{id}")]
