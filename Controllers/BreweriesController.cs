@@ -24,8 +24,9 @@ public class BreweriesController : ControllerBase
     }
 
     [HttpGet("search")]
-    public Task<ActionResult<List<Brewery>>> SearchBreweries(string query)
+    public async Task<ActionResult<List<Brewery>>> SearchBreweries(string query)
     {
-        throw new NotImplementedException();
+        var breweries = await client.GetFromJsonAsync<List<Brewery>>($"{BASE_URL}search?query={query}");
+        return breweries == null ? NotFound() : breweries;
     }
 }
