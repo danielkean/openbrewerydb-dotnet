@@ -17,9 +17,10 @@ public class BreweriesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public Task<ActionResult<Brewery>> GetBrewery(string id)
+    public async Task<ActionResult<Brewery>> GetBrewery(string id)
     {
-        throw new NotImplementedException();
+        var brewery = await client.GetFromJsonAsync<Brewery>($"{BASE_URL}{id}");
+        return brewery == null ? NotFound() : brewery;
     }
 
     [HttpGet("search")]
